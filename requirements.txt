@@ -1,0 +1,11 @@
+# college-report-ppt v2 运行依赖（Python 3.10+）
+# DSH 自带 Python 已内置 yaml / python-pptx / Pillow / python-docx；
+# 普通环境用：python3 -m pip install -r requirements.txt
+PyYAML>=6.0
+python-pptx>=0.6.21
+Pillow>=9.0.0
+python-docx>=1.0.0
+
+# 可选：从 PDF 提取正文与图片（paper_extract.py / extract_figures.py）
+# 没装时仍可手动整理材料，只是不能自动抽图。
+PyMuPDF>=1.23

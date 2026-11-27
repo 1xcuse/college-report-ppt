@@ -1,0 +1,104 @@
+{
+ "schema_version": 2,
+ "profile": {
+  "school": "示例大学",
+  "college": "示例学院",
+  "reporter": "张三",
+  "role": "研究生",
+  "purpose": "group_paper",
+  "duration_min": 20,
+  "skin": "academic",
+  "motion": "gentle",
+  "humanize": true
+ },
+ "title": "面向低空经济的多目标 ISAC",
+ "subtitle": "基于多任务深度强化学习与混合专家（MoE）",
+ "paper": {
+  "title_cn": "面向低空经济的多目标 ISAC：基于多任务深度强化学习与混合专家",
+  "title_en": "Multi-Objective ISAC for Low-Altitude Economy Based on Multi-Task Deep Reinforcement Learning With Mixture of Experts",
+  "authors": "Xiaowen Ye、Hengyi Lin、Xianxin Song、Yi Wu、Liqun Fu",
+  "affiliations": "福建师范大学；香港城市大学电子工程系；厦门大学",
+  "keywords": "低空经济；通信感知一体化；多目标优化；深度强化学习；混合专家",
+  "summary": "一个基站同时给授权机供网、还要感知没报备的目标，一条策略适配不同侧重",
+  "venue": "IEEE Transactions on Mobile Computing",
+  "volume": "2026 年 10 月 · 第 25 卷第 10 期 · 第 17472–17488 页",
+  "doi": "10.1109/TMC.2026.3693366",
+  "ranks": ["CCF A 类（计算机网络）", "中科院 1 区 Top", "JCR Q1"],
+  "metrics": "影响因子 8.8（2025 JCR）",
+  "metrics_note": "CiteScore 11.90，H-index 122",
+  "source_note": "数据来源：Crossref、X-MOL（2026-11 查询）"
+ },
+ "sections": [
+  {"num": "1", "title": "引言与背景", "summary": "为什么低空经济需要通感一体"},
+  {"num": "2", "title": "论文方法与结果", "summary": "系统模型、MODE 方法、实验"},
+  {"num": "3", "title": "结论与下一步", "summary": "结论、不足与下一步"}
+ ],
+ "pages": [
+  {"type": "chapter", "num": "1", "title": "引言与背景", "sub": "通信和雷达，能不能共用一套信号",
+   "bullets": ["低空场景要什么", "之前的方法不够用", "这篇论文打算怎么做"],
+   "notes": "先讲清楚为什么低空经济需要通信感知一体化。"},
+  {"type": "bullets", "eyebrow": "1.1", "title": "低空经济需要通感一体",
+   "lead": "既要服务授权机，又要防没报备的机，频谱和硬件都想省",
+   "items": [
+    {"k": "低空经济", "t": "1000 m 以下的飞行器活动，农业、应急、物流都在用"},
+    {"k": "要做什么", "t": "授权机要通信和导航，天上还有黑飞要能看见、能跟住"},
+    {"k": "两套系统太贵", "t": "通信和雷达共用一套波形，代价是抢同一份功率"}
+   ],
+   "notes": "低空经济指 1000 米以下的飞行器活动。通信和雷达各建一套太贵，所以让它们共用一套信号和硬件。"},
+  {"type": "bullets", "eyebrow": "1.2", "title": "之前的方法各缺一块",
+   "layout": "cards",
+   "items": [
+    {"k": "传统优化", "t": "非凸、变量还耦合，迭代代价高，经常停在次优"},
+    {"k": "DQN", "t": "只能从离散动作里选，连续量离散化后维度会爆"},
+    {"k": "DDPG", "t": "能输出连续动作，但一次只学一个目标，换 b 就得重训"}
+   ],
+   "notes": "三种方法各缺一块，所以要的是能连续控制、还能多目标共享训练的方法。"},
+  {"type": "chapter", "num": "2", "title": "论文方法与结果", "sub": "系统模型 → 问题建模 → MODE 方法 → 实验",
+   "bullets": ["系统场景", "MODE 整体框架", "实验设置与结果"]},
+  {"type": "left_fig", "eyebrow": "2.1", "title": "一个基站，同时供网和盯目标",
+   "blocks": [
+    {"h": "地面基站（GBS）", "p": "一个多天线基站，通信和感知共用一套波束"},
+    {"h": "授权无人机 ×K", "p": "到无人机的链路负责通信，到目标的链路负责感知"},
+    {"h": "未授权目标", "p": "论文没有写目标的具体机动模型参数"}
+   ],
+   "fig": "fig_mode_1_system.png", "fig_w": 444, "fig_h": 250,
+   "caption": "图 2.1　低空经济多目标 ISAC 场景（论文原图）",
+   "source": "来源：X. Ye et al., IEEE Trans. Mobile Comput., 2026",
+   "notes": "这页把场景摆出来：一个基站在原点，一边供网一边感知。"},
+  {"type": "big_fig", "eyebrow": "2.2", "title": "训练和部署分开：共享底层，换偏好只微调一层",
+   "fig": "fig_mode_2_framework.png", "fig_w": 760, "fig_h": 284,
+   "caption": "图 2.2　MODE 框架（论文原图）",
+   "lines": ["左边是环境，中上是约束动作选择，下面是缓冲区与 MoE 训练",
+             "右边是在线阶段：换新的 b 只加一层输出层"],
+   "notes": "重点把训练和部署分开。"},
+  {"type": "keynums", "eyebrow": "2.3", "title": "这篇论文的关键数字",
+   "items": [
+    {"num": "8.8", "unit": "影响因子", "t": "IEEE TMC 2025 JCR"},
+    {"num": "40", "unit": "时隙/回合", "t": "一回合的时隙数"},
+    {"num": "5", "unit": "万回合", "t": "总训练回合数"},
+    {"num": "6", "unit": "架无人机", "t": "仿真中的授权无人机数量"}
+   ],
+   "note": "论文没有写时隙长度 Δt、功率上限 P_max 的具体值。"},
+  {"type": "compare", "eyebrow": "2.4", "title": "传统方法 vs 本文 MODE",
+   "cols": [
+    {"h": "传统优化 / DDPG", "items": ["非凸、迭代慢", "换偏好权重要重解或重训", "部署要重新训练"]},
+    {"h": "本文 MODE", "items": ["一次训练覆盖多个偏好", "换 b 只微调一层输出层", "共享底层表示可复用"], "highlight": true}
+   ],
+   "notes": "对比的核心是换偏好权重的代价。"},
+  {"type": "pipeline", "eyebrow": "2.5", "title": "从建模到部署，怎么串起来",
+   "steps": [
+    {"h": "① 多目标 MDP", "t": "状态是两类 CSI 和无人机位置，奖励是两个指标组成的向量"},
+    {"h": "② 多任务 MoE", "t": "共享门控加 M 个专家，每个偏好权重留一层输出层"},
+    {"h": "③ 整回合回放", "t": "按完整回合取经验，换新 b 只微调一层输出层"}
+   ],
+   "note": "三块设计分别解决建模、共享训练和部署三个问题。"},
+  {"type": "chapter", "num": "3", "title": "结论与下一步", "sub": "先把结论说清，再说论文没做的部分"},
+  {"type": "summary", "eyebrow": "3.1", "title": "结论，以及它没解决的部分",
+   "cols": [
+    {"h": "结论", "items": ["把约束做进动作里，波束和轨迹就能一起优化", "MoE 让偏好权重之间能共享底层", "整回合回放加在线微调，解决训练与部署"]},
+    {"h": "不足与下一步", "items": ["只有单基站场景，没有验证多基站协作", "感知只用了 SNR 指标，没有做成像评估"]}
+   ],
+   "notes": "三条结论对应第二章的三块设计；不足的部分，也是我们组能接的地方。"},
+  {"type": "thanks", "title": "谢谢", "subtitle": "请老师和同学批评指正"}
+ ]
+}
